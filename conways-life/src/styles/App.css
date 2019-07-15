@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+.App {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70px;
+}
+h2 {
+  font-weight: 700;
+}
+
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main > .rules-wrapper {
+  width: 40%;
+}
+
+.main > .game-wrapper,
+.rules-wrapper {
+  width: 55%;
+}

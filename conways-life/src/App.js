@@ -1,10 +1,25 @@
 import React from "react";
-import "./App.css";
+import "./styles/App.css";
+import { Button } from "reactstrap";
+import Rules from "./components/Rules";
+import Game from "./components/Game";
+import About from "./components/About";
 
 function App() {
   return (
     <div className="App">
-      <p>success</p>
+      <h1>Conway's Game of Life</h1>
+      <div className="main">
+        <div className="game-wrapper">
+          <Game />
+        </div>
+        <div className="rules-wrapper">
+          <Rules />
+        </div>
+      </div>
+      <div className="about-wrapper">
+        <About />
+      </div>
     </div>
   );
 }
