@@ -1,6 +1,5 @@
 import React from "react";
 import "./styles/App.css";
-import { Button } from "reactstrap";
 import Rules from "./components/Rules";
 import Game from "./components/Game";
 import About from "./components/About";

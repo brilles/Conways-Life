@@ -1,8 +1,8 @@
 * {
   box-sizing: border-box;
 }
+
 .App {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -22,10 +22,10 @@ h2 {
 }
 
 .main > .rules-wrapper {
-  width: 40%;
+  width: 38%;
 }
 
 .main > .game-wrapper,
 .rules-wrapper {
-  width: 55%;
+  width: 60%;
 }
