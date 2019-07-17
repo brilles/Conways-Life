@@ -6,15 +6,27 @@ export default class Game extends Component {
   state = {
     play: false,
     pause: false,
-    stop: false,
     step: false,
     preset1: false,
     preset2: false,
     preset3: false,
-    preset4: false
+    preset4: false,
+    reset: false
   };
 
   updateStatus = e => {
+    if (e.target.id === "reset") {
+      this.setState({
+        play: false,
+        pause: false,
+        step: false,
+        preset1: false,
+        preset2: false,
+        preset3: false,
+        preset4: false,
+        reset: !this.state.reset
+      });
+    }
     this.setState({ [e.target.id]: !this.state[e.target.id] });
   };
 
@@ -33,11 +45,11 @@ export default class Game extends Component {
             <button id="pause" onClick={this.updateStatus}>
               Pause
             </button>
-            <button id="stop" onClick={this.updateStatus}>
-              Stop
-            </button>
             <button id="step" onClick={this.updateStatus}>
               Step
+            </button>
+            <button id="reset" onClick={this.updateStatus}>
+              Reset
             </button>
           </div>
         </div>
