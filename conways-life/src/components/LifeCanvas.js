@@ -4,48 +4,56 @@ import "../styles/Canvas.css";
 export default class LifeCanvas extends Component {
   constructor(props) {
     super(props);
-    this.continueAnimation = true;
     this.canvasRef = createRef(); //create ref (refer using current prop)
+    this.state = {
+      buffer: [],
+      height: 400,
+      width: 400,
+      size: 25
+    };
   }
+
   componentDidMount() {
-    this.animate();
-    // request initial animation fram
-    requestAnimationFrame(timestamp => {
-      this.onAnimFrame(timestamp);
-    });
+    this.initializeBuffer();
   }
-  componentWillMount() {
-    // stop animating
-    this.continueAnimation = false;
+
+  initializeBuffer = () => {
+    const bufferElement = new Array(16).fill(0);
+    const buffer = new Array(16).fill(bufferElement);
+    this.setState({ buffer });
+  };
+
+  componentDidUpdate() {
+    this.initializeCanvas();
   }
-  // called every animation
-  onAnimFrame(timestamp) {
-    console.log(timestamp);
-    // could request another anim frame for later
-    if (this.continueAnimation) {
-      requestAnimationFrame(timestamp => {
-        this.onAnimFrame(timestamp);
-      });
-    }
-  }
-  // animate
-  animate() {
+
+  initializeCanvas = () => {
+    console.log("CANVAS INIT");
+    console.log(this.state.buffer);
+    const { height, width, size } = this.state;
     const canvas = this.canvasRef.current;
-    const ctx = canvas.getContext("2d"); // AKA "context" - the current drawing state of the canvas
-    let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    let screenBuffer = imageData.data;
-    let x = 10,
-      y = 20;
-    let index = (y * canvas.width + x) * 4;
+    const ctx = canvas.getContext("2d");
 
-    screenBuffer[index + 0] = 0xff; // Red: 0xff == 255, full intensity
-    screenBuffer[index + 1] = 0x00; // Green: zero intensity
-    screenBuffer[index + 2] = 0x00; // Blue: zero intensity
-    screenBuffer[index + 3] = 0xff; // Alpha: 0xff == 255, fully opaque
+    // Create Grid
+    for (var y = 0; y <= width; y += size) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y);
+      ctx.stroke();
+    }
+    for (var x = 0; x <= height; x += size) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, height);
+      ctx.stroke();
+    }
+  };
 
-    ctx.putImageData(imageData, 0, 0);
-  }
   render() {
-    return <canvas ref={this.canvasRef} width={400} height={400} />;
+    return (
+      <canvas
+        ref={this.canvasRef}
+        width={this.state.width}
+        height={this.state.height}
+      />
+    );
   }
 }
