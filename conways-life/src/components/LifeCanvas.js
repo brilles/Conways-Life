@@ -9,27 +9,66 @@ export default class LifeCanvas extends Component {
       buffer: [],
       height: 400,
       width: 400,
-      size: 25
+      size: 20
     };
   }
 
   componentDidMount() {
     this.initializeBuffer();
+    this.initializeCanvas();
   }
 
   initializeBuffer = () => {
-    const bufferElement = new Array(16).fill(0);
-    const buffer = new Array(16).fill(bufferElement);
+    const buffer = new Array(20).fill(0);
+    for (var i = 0; i < 20; i++) {
+      buffer[i] = new Array(20).fill(0);
+    }
     this.setState({ buffer });
   };
 
   componentDidUpdate() {
-    this.initializeCanvas();
+    // fill in clicked elements
+    const { buffer } = this.state;
+    const canvas = this.canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    console.log(buffer);
+    for (var i in buffer) {
+      for (var j in buffer[i]) {
+        if (buffer[i][j] === 1) {
+          // paint
+          console.log(buffer[i][j]);
+          console.log(this.props);
+          ctx.rect(j * 20, i * 20, 20, 20); // x, y, w, h - * 20 to resize
+          ctx.fill();
+        }
+      }
+    }
   }
 
+  //
+  position = e => {
+    const canvas = this.canvasRef.current;
+    let mousePosition = this.getMousePosition(e, canvas);
+    // insert the mouse position into the buffer
+    let { x } = mousePosition;
+    let { y } = mousePosition;
+    let colIndex = Math.floor(x / 20);
+    let rowIndex = Math.floor(y / 20);
+    let bufferUpdated = this.state.buffer;
+    bufferUpdated[rowIndex][colIndex] = 1;
+    this.setState({ buffer: bufferUpdated });
+  };
+
+  getMousePosition = (e, canvas) => {
+    let rectangle = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rectangle.left,
+      y: e.clientY - rectangle.top
+    };
+  };
+
   initializeCanvas = () => {
-    console.log("CANVAS INIT");
-    console.log(this.state.buffer);
+    // Setup canvas and context
     const { height, width, size } = this.state;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -50,6 +89,7 @@ export default class LifeCanvas extends Component {
   render() {
     return (
       <canvas
+        onClick={this.position}
         ref={this.canvasRef}
         width={this.state.width}
         height={this.state.height}

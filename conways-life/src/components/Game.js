@@ -3,19 +3,42 @@ import "../styles/Game.css";
 import LifeCanvas from "./LifeCanvas";
 
 export default class Game extends Component {
+  state = {
+    play: false,
+    pause: false,
+    stop: false,
+    step: false,
+    preset1: false,
+    preset2: false,
+    preset3: false,
+    preset4: false
+  };
+
+  updateStatus = e => {
+    this.setState({ [e.target.id]: !this.state[e.target.id] });
+  };
+
   render() {
     return (
       <div className="game">
         <div className="grid">
           <h2>Generation: #</h2>
           <div className="display">
-            <LifeCanvas />
+            <LifeCanvas {...this.state} />
           </div>
           <div className="controls">
-            <button onClick={() => console.log("Play")}>Play</button>
-            <button onClick={() => console.log("Pause")}>Pause</button>
-            <button onClick={() => console.log("Stop")}>Stop</button>
-            <button onClick={() => console.log("Step")}>Step</button>
+            <button id="play" onClick={this.updateStatus}>
+              Play
+            </button>
+            <button id="pause" onClick={this.updateStatus}>
+              Pause
+            </button>
+            <button id="stop" onClick={this.updateStatus}>
+              Stop
+            </button>
+            <button id="step" onClick={this.updateStatus}>
+              Step
+            </button>
           </div>
         </div>
         <div className="presets">
@@ -23,19 +46,27 @@ export default class Game extends Component {
           <div className="preset-main">
             <div className="preset">
               <div>img here</div>
-              <button onClick={() => console.log("Preset 1")}>Preset 1</button>
+              <button id="preset1" onClick={this.updateStatus}>
+                Preset 1
+              </button>
             </div>
             <div className="preset">
               <div>img here</div>
-              <button onClick={() => console.log("Preset 2")}>Preset 2</button>
+              <button id="preset2" onClick={this.updateStatus}>
+                Preset 2
+              </button>
             </div>
             <div className="preset">
               <div>img here</div>
-              <button onClick={() => console.log("Preset 3")}>Preset 3</button>
+              <button id="preset3" onClick={this.updateStatus}>
+                Preset 3
+              </button>
             </div>
             <div className="preset">
               <div>img here</div>
-              <button onClick={() => console.log("Preset 4")}>Preset 4</button>
+              <button id="preset3" onClick={this.updateStatus}>
+                Preset 4
+              </button>
             </div>
           </div>
         </div>
