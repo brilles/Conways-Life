@@ -1,3 +1,5 @@
+@import "~antd/dist/antd.css";
+
 * {
   box-sizing: border-box;
 }
@@ -5,27 +7,32 @@
 .App {
   max-width: 1000px;
   margin: 0 auto;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
-h1 {
+.App > h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70px;
-}
-h2 {
+  height: 80px;
+  font-size: 2rem;
   font-weight: 700;
+  margin-bottom: 20px;
 }
 
 .main {
   display: flex;
   justify-content: space-between;
+  padding: 30px;
+  border-radius: 30px;
+  background: rgb(0, 0, 0);
+  color: #fff;
 }
 
 .main > .rules-wrapper {
-  width: 38%;
+  width: 30%;
 }
 
 .main > .game-wrapper,
 .rules-wrapper {
-  width: 60%;
+  width: 65%;
 }

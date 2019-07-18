@@ -1,6 +1,16 @@
+.about {
+  margin: 30px 0;
+  line-height: 2;
+  padding: 20px 30px;
+  border-radius: 30px;
+  background: rgb(0, 0, 0);
+  color: #fff;
+}
+
 .about > h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
+  font-size: 20px;
+  color: #fff;
 }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "../styles/Game.css";
 import LifeCanvas from "./LifeCanvas";
+import Button from "antd/es/button";
+import test from "../assets/test-img.png";
 
 export default class Game extends Component {
   state = {
@@ -39,46 +41,85 @@ export default class Game extends Component {
             <LifeCanvas {...this.state} />
           </div>
           <div className="controls">
-            <button id="play" onClick={this.updateStatus}>
+            <Button
+              id="play"
+              shape="round"
+              type="default"
+              onClick={this.updateStatus}
+            >
               Play
-            </button>
-            <button id="pause" onClick={this.updateStatus}>
+            </Button>
+            <Button
+              id="pause"
+              type="default"
+              shape="round"
+              onClick={this.updateStatus}
+            >
               Pause
-            </button>
-            <button id="step" onClick={this.updateStatus}>
+            </Button>
+            <Button
+              id="step"
+              type="default"
+              shape="round"
+              onClick={this.updateStatus}
+            >
               Step
-            </button>
-            <button id="reset" onClick={this.updateStatus}>
+            </Button>
+            <Button
+              id="reset"
+              type="danger"
+              shape="round"
+              onClick={this.updateStatus}
+            >
               Reset
-            </button>
+            </Button>
           </div>
         </div>
         <div className="presets">
-          <h2>Presets</h2>
           <div className="preset-main">
             <div className="preset">
-              <div>img here</div>
-              <button id="preset1" onClick={this.updateStatus}>
+              <img src={test} alt="test img" />
+              <Button
+                id="preset1"
+                type="default"
+                shape="round"
+                onClick={this.updateStatus}
+              >
                 Preset 1
-              </button>
+              </Button>
             </div>
             <div className="preset">
-              <div>img here</div>
-              <button id="preset2" onClick={this.updateStatus}>
+              <img src={test} alt="test img" />
+              <Button
+                id="preset2"
+                type="default"
+                shape="round"
+                onClick={this.updateStatus}
+              >
                 Preset 2
-              </button>
+              </Button>
             </div>
             <div className="preset">
-              <div>img here</div>
-              <button id="preset3" onClick={this.updateStatus}>
+              <img src={test} alt="test img" />
+              <Button
+                id="preset3"
+                type="default"
+                shape="round"
+                onClick={this.updateStatus}
+              >
                 Preset 3
-              </button>
+              </Button>
             </div>
             <div className="preset">
-              <div>img here</div>
-              <button id="preset3" onClick={this.updateStatus}>
+              <img src={test} alt="test img" />
+              <Button
+                id="preset4"
+                type="default"
+                shape="round"
+                onClick={this.updateStatus}
+              >
                 Preset 4
-              </button>
+              </Button>
             </div>
           </div>
         </div>
