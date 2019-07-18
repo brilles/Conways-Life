@@ -14,10 +14,6 @@ export default function Rules() {
         life. Else it remains dead.
       </p>
       <h2>To Begin 🟢</h2>
-      <p>
-        · If the cell is alive and has 2 or 3 neighbors, then it remains alive.
-        Else it dies.
-      </p>
       <p>· Fill in cells by clicking the grid and click play!</p>
     </div>
   );

@@ -208,12 +208,19 @@ export default class LifeCanvas extends Component {
 
   render() {
     return (
-      <canvas
-        onClick={this.position}
-        ref={this.canvasRef}
-        width={this.state.width}
-        height={this.state.height}
-      />
+      <>
+        <h2>
+          Generation: <span>{this.state.generation}</span>
+        </h2>
+        <div className="canvas-display">
+          <canvas
+            onClick={this.position}
+            ref={this.canvasRef}
+            width={this.state.width}
+            height={this.state.height}
+          />
+        </div>
+      </>
     );
   }
 }

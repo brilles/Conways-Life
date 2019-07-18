@@ -42,13 +42,20 @@
 
 .grid > h2,
 .rules > h2 {
-  color: #fff;
+  color: rgb(0, 140, 255);
   font-size: 20px;
   height: 40px;
 }
 
-.grid > .display {
+.rules > p > span {
+  color: yellow;
+}
+.grid > .display > .canvas-display {
   border: 3px solid red;
   height: 405px;
   width: 405px;
+}
+
+.grid > .display > h2 {
+  font-size: 20px;
 }

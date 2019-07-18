@@ -36,7 +36,6 @@ export default class Game extends Component {
     return (
       <div className="game">
         <div className="grid">
-          <h2>Generation: #</h2>
           <div className="display">
             <LifeCanvas {...this.state} />
           </div>
