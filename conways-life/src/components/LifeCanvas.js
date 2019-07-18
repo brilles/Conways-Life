@@ -7,10 +7,12 @@ export default class LifeCanvas extends Component {
     this.canvasRef = createRef(); //create ref (refer using current prop)
     this.state = {
       buffer: [],
+      secondBuffer: [],
       height: 400,
       width: 400,
       size: 20,
-      reset: false
+      reset: false,
+      generation: 0
     };
   }
 
@@ -28,16 +30,23 @@ export default class LifeCanvas extends Component {
   };
 
   runSimulation = () => {
-    console.log("Simulation running");
+    const buffer2 = new Array(20).fill(0);
+    for (var i = 0; i < 20; i++) {
+      buffer2[i] = new Array(20).fill(0);
+    }
+
     const { buffer } = this.state;
+    const secondBuffer = buffer2;
     for (var i in buffer) {
+      // console.log(`ROW: ${i}`);
+
       for (var j in buffer[i]) {
+        // console.log(`IDX ${j}, ${buffer[i][j]}`);
         let above = i - 1;
         let below = Number(i) + 1;
         let right = Number(j) + 1;
         let left = Number(j) - 1;
-
-        let position = [j, i];
+        let position = [i, j];
         let neighbor1 = [left, above];
         let neighbor2 = [j, above];
         let neighbor3 = [right, above];
@@ -45,9 +54,10 @@ export default class LifeCanvas extends Component {
         let neighbor5 = [right, below];
         let neighbor6 = [j, below];
         let neighbor7 = [left, below];
-        let neighbor8 = [left, j];
-        // Clockwise numbering (leftmost == 0)
-        const neighbors = [
+        let neighbor8 = [left, i];
+
+        // Clockwise numbering (left-top == neighbor 1)
+        let neighbors = [
           neighbor1,
           neighbor2,
           neighbor3,
@@ -57,48 +67,88 @@ export default class LifeCanvas extends Component {
           neighbor7,
           neighbor8
         ];
-        let neighborsActive = [];
+
+        // If the cell is alive and has 2 or 3 neighbors, then it remains alive. Else it dies.
         if (buffer[i][j] === 1) {
-          console.log(neighbors);
+          let neighborsActive = [];
+          for (var neighbor in neighbors) {
+            let x = neighbors[neighbor][1];
+            let y = neighbors[neighbor][0];
 
-          // If the cell is alive and has 2 or 3 neighbors, then it remains alive. Else it dies.
-          // If the cell is dead and has exactly 3 neighbors, then it comes to life.
-          //Else if remains dead.
-
+            if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
+              if (buffer[x][y] === 1) {
+                neighborsActive.push([x, y]);
+              }
+            }
+          }
           if (neighborsActive.length === 2 || neighborsActive.length === 3) {
-            console.log("remains alive");
-          } else {
-            console.log("dies");
+            secondBuffer[i][j] = 1;
           }
         } else {
-          // inActive
-          if (neighborsActive.length === 3) {
-            console.log("comes to live");
+          // the cell is dead
+          let neighborsAlive = [];
+          for (var k in neighbors) {
+            let x = neighbors[k][1];
+            let y = neighbors[k][0];
+
+            if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
+              if (buffer[x][y] === 1) {
+                neighborsAlive.push([x, y]);
+              }
+            }
+          }
+          // console.log(neighborsAlive);
+          if (neighborsAlive.length === 3) {
+            console.log("THREE NEIGHBORS @", i, j);
+            secondBuffer[i][j] = 1;
           }
         }
       }
     }
+
+    // update state => new generation
+    // while (this.state.generation < 10) {
+    //   if (buffer != secondBuffer) {
+
+    //     });
+    //   }
+    // }
+    //     console.log("BUFFER", buffer);
+    //     console.log("SECOND BUFFER", secondBuffer);
+    this.setState({
+      buffer: secondBuffer,
+      generation: this.state.generation + 1
+    });
   };
 
   componentDidUpdate() {
     // TODO: refactor so no state
     if (this.state.reset !== this.props.reset) {
       this.setState({ reset: !this.state.reset });
-      this.initializeBuffer();
+      // this.initializeBuffer();
     }
-    if (this.props.play == true) {
+    if (this.props.play !== this.state.play) {
       // play
+      this.setState({ play: !this.state.play });
       this.runSimulation();
     }
-    // fill in clicked elements
-    const { buffer } = this.state;
+    // fill in elements
+    let { buffer } = this.state;
+    console.log("BUFFER FROM CDU", buffer);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext("2d");
     for (var i in buffer) {
       for (var j in buffer[i]) {
         if (buffer[i][j] === 1) {
           // paint
+          ctx.beginPath();
           ctx.rect(j * 20, i * 20, 20, 20); // x, y, w, h - * 20 to resize
+          ctx.fillStyle = "black";
+          ctx.fill();
+        } else {
+          ctx.beginPath();
+          ctx.rect(j * 20, i * 20, 19, 19); // x, y, w, h - * 20 to resize
+          ctx.fillStyle = "white";
           ctx.fill();
         }
       }
