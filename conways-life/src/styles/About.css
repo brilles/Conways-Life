@@ -7,10 +7,19 @@
   color: #fff;
 }
 
-.about > h2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.about > h2,
+h3 {
   font-size: 20px;
   color: rgb(0, 140, 255);
+}
+
+.about > p,
+p.bottom {
+  margin-top: 10px;
+  color: #fff;
+}
+
+p.bottom {
+  margin-top: 10px;
+  color: rgb(0, 255, 76);
 }
