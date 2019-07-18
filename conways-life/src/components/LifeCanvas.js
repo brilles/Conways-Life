@@ -11,8 +11,8 @@ export default class LifeCanvas extends Component {
       height: 400,
       width: 400,
       size: 20,
-      reset: false,
       generation: 0,
+      reset: false,
       play: false,
       random: false
     };
@@ -113,8 +113,9 @@ export default class LifeCanvas extends Component {
   componentDidUpdate() {
     // TODO: refactor so no state
     if (this.state.reset !== this.props.reset) {
+      //reset
       this.setState({ reset: !this.state.reset });
-      // this.initializeBuffer();
+      this.initializeBuffer();
     }
     if (this.props.play !== this.state.play) {
       // play
