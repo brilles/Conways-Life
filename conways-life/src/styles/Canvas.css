@@ -6,3 +6,7 @@ h2 > span {
   color: #fff;
   padding-left: 10px;
 }
+h2 > span.right {
+  padding-left: 0;
+  padding-right: 10px;
+}

@@ -14,7 +14,8 @@ export default class LifeCanvas extends Component {
       generation: 0,
       reset: false,
       play: false,
-      random: false
+      random: false,
+      pause: true
     };
   }
 
@@ -32,86 +33,87 @@ export default class LifeCanvas extends Component {
   };
 
   runSimulation = () => {
-    const buffer2 = new Array(20).fill(0);
-    for (var i = 0; i < 20; i++) {
-      buffer2[i] = new Array(20).fill(0);
-    }
+    if (this.props.pause !== this.state.pause) {
+      const buffer2 = new Array(20).fill(0);
+      for (var i = 0; i < 20; i++) {
+        buffer2[i] = new Array(20).fill(0);
+      }
 
-    const { buffer } = this.state;
-    const secondBuffer = buffer2;
-    for (var i in buffer) {
-      for (var j in buffer[i]) {
-        let above = i - 1;
-        let below = Number(i) + 1;
-        let right = Number(j) + 1;
-        let left = Number(j) - 1;
-        let neighbor1 = [left, above];
-        let neighbor2 = [j, above];
-        let neighbor3 = [right, above];
-        let neighbor4 = [right, i];
-        let neighbor5 = [right, below];
-        let neighbor6 = [j, below];
-        let neighbor7 = [left, below];
-        let neighbor8 = [left, i];
+      const { buffer } = this.state;
+      const secondBuffer = buffer2;
+      for (var i in buffer) {
+        for (var j in buffer[i]) {
+          let above = i - 1;
+          let below = Number(i) + 1;
+          let right = Number(j) + 1;
+          let left = Number(j) - 1;
+          let neighbor1 = [left, above];
+          let neighbor2 = [j, above];
+          let neighbor3 = [right, above];
+          let neighbor4 = [right, i];
+          let neighbor5 = [right, below];
+          let neighbor6 = [j, below];
+          let neighbor7 = [left, below];
+          let neighbor8 = [left, i];
 
-        // Clockwise numbering (left-top == neighbor 1)
-        let neighbors = [
-          neighbor1,
-          neighbor2,
-          neighbor3,
-          neighbor4,
-          neighbor5,
-          neighbor6,
-          neighbor7,
-          neighbor8
-        ];
+          // Clockwise numbering (left-top == neighbor 1)
+          let neighbors = [
+            neighbor1,
+            neighbor2,
+            neighbor3,
+            neighbor4,
+            neighbor5,
+            neighbor6,
+            neighbor7,
+            neighbor8
+          ];
 
-        // If the cell is alive and has 2 or 3 neighbors, then it remains alive. Else it dies.
-        if (buffer[i][j] === 1) {
-          let neighborsActive = [];
-          for (var neighbor in neighbors) {
-            let x = neighbors[neighbor][1];
-            let y = neighbors[neighbor][0];
+          // If the cell is alive and has 2 or 3 neighbors, then it remains alive. Else it dies.
+          if (buffer[i][j] === 1) {
+            let neighborsActive = [];
+            for (var neighbor in neighbors) {
+              let x = neighbors[neighbor][1];
+              let y = neighbors[neighbor][0];
 
-            if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
-              if (buffer[x][y] === 1) {
-                neighborsActive.push([x, y]);
+              if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
+                if (buffer[x][y] === 1) {
+                  neighborsActive.push([x, y]);
+                }
               }
             }
-          }
-          if (neighborsActive.length === 2 || neighborsActive.length === 3) {
-            secondBuffer[i][j] = 1;
-          }
-        } else {
-          // the cell is dead
-          let neighborsAlive = [];
-          for (var k in neighbors) {
-            let x = neighbors[k][1];
-            let y = neighbors[k][0];
+            if (neighborsActive.length === 2 || neighborsActive.length === 3) {
+              secondBuffer[i][j] = 1;
+            }
+          } else {
+            // the cell is dead
+            let neighborsAlive = [];
+            for (var k in neighbors) {
+              let x = neighbors[k][1];
+              let y = neighbors[k][0];
 
-            if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
-              if (buffer[x][y] === 1) {
-                neighborsAlive.push([x, y]);
+              if (x !== -1 && y !== -1 && x !== 20 && y !== 20) {
+                if (buffer[x][y] === 1) {
+                  neighborsAlive.push([x, y]);
+                }
               }
             }
-          }
-          if (neighborsAlive.length === 3) {
-            secondBuffer[i][j] = 1;
+            if (neighborsAlive.length === 3) {
+              secondBuffer[i][j] = 1;
+            }
           }
         }
       }
+      this.setState({
+        buffer: secondBuffer,
+        generation: this.state.generation + 1
+      });
+      setTimeout(() => {
+        this.runSimulation();
+      }, 83);
     }
-    this.setState({
-      buffer: secondBuffer,
-      generation: this.state.generation + 1
-    });
-    setTimeout(() => {
-      this.runSimulation();
-    }, 83);
   };
 
   componentDidUpdate() {
-    // TODO: refactor so no state
     if (this.state.reset !== this.props.reset) {
       //reset
       this.setState({ reset: !this.state.reset });
@@ -215,7 +217,8 @@ export default class LifeCanvas extends Component {
     return (
       <>
         <h2>
-          Generation: <span>{this.state.generation}</span>
+          <span className="right">🧬</span>Generation:
+          <span>{this.state.generation}</span>
         </h2>
         <div className="canvas-display">
           <canvas

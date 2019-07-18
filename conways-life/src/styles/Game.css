@@ -48,7 +48,7 @@
 }
 
 .rules > p > span {
-  color: yellow;
+  color: rgb(0, 153, 255);
 }
 .grid > .display > .canvas-display {
   border: 3px solid red;
@@ -58,4 +58,12 @@
 
 .grid > .display > h2 {
   font-size: 20px;
+}
+
+.grid > .controls {
+  width: 125%;
+  background: rgb(78, 78, 78);
+  border-radius: 50px;
+  height: 50px;
+  margin-top: 20px;
 }

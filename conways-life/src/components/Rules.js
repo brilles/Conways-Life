@@ -15,7 +15,8 @@ export default function Rules() {
       </p>
       <h2>To Begin 🟢</h2>
       <p>
-        · Fill in cells by clicking the grid or clicking random and click play!
+        · Fill in cells by clicking the grid or clicking <span>random</span> and
+        click play!
       </p>
     </div>
   );
