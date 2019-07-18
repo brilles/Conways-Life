@@ -14,7 +14,9 @@ export default function Rules() {
         life. Else it remains dead.
       </p>
       <h2>To Begin 🟢</h2>
-      <p>· Fill in cells by clicking the grid and click play!</p>
+      <p>
+        · Fill in cells by clicking the grid or clicking random and click play!
+      </p>
     </div>
   );
 }

@@ -13,7 +13,8 @@ export default class Game extends Component {
     preset2: false,
     preset3: false,
     preset4: false,
-    reset: false
+    reset: false,
+    random: false
   };
 
   updateStatus = e => {
@@ -26,7 +27,8 @@ export default class Game extends Component {
         preset2: false,
         preset3: false,
         preset4: false,
-        reset: !this.state.reset
+        reset: !this.state.reset,
+        random: false
       });
     }
     this.setState({ [e.target.id]: !this.state[e.target.id] });
@@ -71,6 +73,14 @@ export default class Game extends Component {
               onClick={this.updateStatus}
             >
               Reset
+            </Button>
+            <Button
+              id="random"
+              type="primary"
+              shape="round"
+              onClick={this.updateStatus}
+            >
+              Random
             </Button>
           </div>
         </div>

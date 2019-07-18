@@ -12,7 +12,9 @@ export default class LifeCanvas extends Component {
       width: 400,
       size: 20,
       reset: false,
-      generation: 0
+      generation: 0,
+      play: false,
+      random: false
     };
   }
 
@@ -38,15 +40,11 @@ export default class LifeCanvas extends Component {
     const { buffer } = this.state;
     const secondBuffer = buffer2;
     for (var i in buffer) {
-      // console.log(`ROW: ${i}`);
-
       for (var j in buffer[i]) {
-        // console.log(`IDX ${j}, ${buffer[i][j]}`);
         let above = i - 1;
         let below = Number(i) + 1;
         let right = Number(j) + 1;
         let left = Number(j) - 1;
-        let position = [i, j];
         let neighbor1 = [left, above];
         let neighbor2 = [j, above];
         let neighbor3 = [right, above];
@@ -97,28 +95,19 @@ export default class LifeCanvas extends Component {
               }
             }
           }
-          // console.log(neighborsAlive);
           if (neighborsAlive.length === 3) {
-            console.log("THREE NEIGHBORS @", i, j);
             secondBuffer[i][j] = 1;
           }
         }
       }
     }
-
-    // update state => new generation
-    // while (this.state.generation < 10) {
-    //   if (buffer != secondBuffer) {
-
-    //     });
-    //   }
-    // }
-    //     console.log("BUFFER", buffer);
-    //     console.log("SECOND BUFFER", secondBuffer);
     this.setState({
       buffer: secondBuffer,
       generation: this.state.generation + 1
     });
+    setTimeout(() => {
+      this.runSimulation();
+    }, 83);
   };
 
   componentDidUpdate() {
@@ -132,9 +121,15 @@ export default class LifeCanvas extends Component {
       this.setState({ play: !this.state.play });
       this.runSimulation();
     }
+
+    if (this.props.random !== this.state.random) {
+      // random config
+      this.setState({ random: !this.state.random });
+      this.randomConfig();
+    }
+
     // fill in elements
     let { buffer } = this.state;
-    console.log("BUFFER FROM CDU", buffer);
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext("2d");
     for (var i in buffer) {
@@ -155,7 +150,22 @@ export default class LifeCanvas extends Component {
     }
   }
 
-  //
+  randomConfig = () => {
+    const bufferZero = new Array(20).fill(0);
+    for (var i = 0; i < 20; i++) {
+      bufferZero[i] = new Array(20).fill(0);
+    }
+    if (this.props.play == false) {
+      for (var i in bufferZero) {
+        for (var j in bufferZero[i]) {
+          let rand = Math.floor(Math.random() * 2);
+          bufferZero[i][j] = rand; // random between 0, 1
+        }
+      }
+      this.setState({ buffer: bufferZero });
+    }
+  };
+
   position = e => {
     if (this.props.play === false) {
       const canvas = this.canvasRef.current;
@@ -186,12 +196,6 @@ export default class LifeCanvas extends Component {
     const { height, width, size } = this.state;
     const canvas = this.canvasRef.current;
     const ctx = canvas.getContext("2d");
-
-    // let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-    // let screenBuffer = imageData.data;
-    // screenBuffer[0] = 1;
-    // console.log("SCREEN BUFFER", screenBuffer);
 
     // Create Grid
     for (var y = 0; y <= width; y += size) {
