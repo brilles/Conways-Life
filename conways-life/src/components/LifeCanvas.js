@@ -217,7 +217,7 @@ export default class LifeCanvas extends Component {
     return (
       <>
         <h2>
-          <span className="right">🧬</span>Generation:
+          Generation:
           <span>{this.state.generation}</span>
         </h2>
         <div className="canvas-display">
