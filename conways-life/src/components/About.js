@@ -5,7 +5,7 @@ export default function About() {
   return (
     <div className="about">
       <h2>About</h2>
-      <h3>Is the Game of Life Turing Complete?</h3>
+      <p>Is the Game of Life Turing Complete? </p>
       <p>
         Something is said to be Turing complete if it is capable of computing
         that which a Turing Machine can compute. A Turing Machine is a
