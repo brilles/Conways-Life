@@ -54,12 +54,12 @@ export default class Game extends Component {
               Play
             </Button>
             <Button
-              id="pause"
+              id="step"
               type="default"
               shape="round"
               onClick={this.updateStatus}
             >
-              Pause
+              Stop
             </Button>
             <Button
               id="step"
