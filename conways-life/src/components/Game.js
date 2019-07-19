@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import "../styles/Game.css";
 import LifeCanvas from "./LifeCanvas";
 import Button from "antd/es/button";
-import test from "../assets/test-img.png";
+import preset1 from "../assets/preset1.png";
+import preset2 from "../assets/preset2.png";
+import preset3 from "../assets/preset3.png";
+import preset4 from "../assets/preset4.png";
 
 export default class Game extends Component {
   state = {
@@ -27,7 +30,7 @@ export default class Game extends Component {
         preset2: false,
         preset3: false,
         preset4: false,
-        reset: !this.state.reset,
+        reset: false,
         random: false
       });
     }
@@ -87,7 +90,7 @@ export default class Game extends Component {
         <div className="presets">
           <div className="preset-main">
             <div className="preset">
-              <img src={test} alt="test img" />
+              <img src={preset1} alt="test img" />
               <Button
                 id="preset1"
                 type="default"
@@ -98,7 +101,7 @@ export default class Game extends Component {
               </Button>
             </div>
             <div className="preset">
-              <img src={test} alt="test img" />
+              <img src={preset2} alt="test img" />
               <Button
                 id="preset2"
                 type="default"
@@ -109,7 +112,7 @@ export default class Game extends Component {
               </Button>
             </div>
             <div className="preset">
-              <img src={test} alt="test img" />
+              <img src={preset3} alt="test img" />
               <Button
                 id="preset3"
                 type="default"
@@ -120,7 +123,7 @@ export default class Game extends Component {
               </Button>
             </div>
             <div className="preset">
-              <img src={test} alt="test img" />
+              <img src={preset4} alt="test img" />
               <Button
                 id="preset4"
                 type="default"

@@ -15,13 +15,18 @@ export default class LifeCanvas extends Component {
       reset: false,
       play: false,
       random: false,
-      pause: true
+      pause: true,
+      preset1: [],
+      preset2: [],
+      preset3: [],
+      preset4: []
     };
   }
 
   componentDidMount() {
     this.initializeBuffer();
     this.initializeCanvas();
+    this.initializePresets();
   }
 
   initializeBuffer = () => {
@@ -30,6 +35,10 @@ export default class LifeCanvas extends Component {
       buffer[i] = new Array(20).fill(0);
     }
     this.setState({ buffer });
+  };
+
+  initializePresets = () => {
+    console.log("wprking");
   };
 
   runSimulation = () => {
@@ -130,6 +139,7 @@ export default class LifeCanvas extends Component {
       this.setState({ random: !this.state.random });
       this.randomConfig();
     }
+    console.log(this.state.buffer);
 
     // fill in elements
     let { buffer } = this.state;
@@ -158,7 +168,7 @@ export default class LifeCanvas extends Component {
     for (var i = 0; i < 20; i++) {
       bufferZero[i] = new Array(20).fill(0);
     }
-    if (this.props.play == false) {
+    if (this.props.play === false) {
       for (var i in bufferZero) {
         for (var j in bufferZero[i]) {
           let rand = Math.floor(Math.random() * 2);
