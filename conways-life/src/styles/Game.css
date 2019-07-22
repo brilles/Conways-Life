@@ -1,0 +1,69 @@
+.game {
+  display: flex;
+  justify-content: space-between;
+}
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.controls {
+  height: 70px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.presets {
+  height: 400px;
+  width: 32%;
+}
+.preset-main {
+  margin-top: 40px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.preset {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preset > img {
+  height: 90px;
+  width: 90px;
+  /* border: 1px solid #000; */
+}
+
+.grid > h2,
+.rules > h2 {
+  color: rgb(0, 140, 255);
+  font-size: 20px;
+  height: 40px;
+}
+
+.rules > p > span {
+  color: rgb(0, 153, 255);
+}
+.grid > .display > .canvas-display {
+  border: 3px solid red;
+  height: 405px;
+  width: 405px;
+}
+
+.grid > .display > h2 {
+  font-size: 20px;
+}
+
+.grid > .controls {
+  width: 125%;
+  background: rgb(78, 78, 78);
+  border-radius: 50px;
+  height: 50px;
+  margin-top: 20px;
+}

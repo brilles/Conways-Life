@@ -1,0 +1,20 @@
+.about {
+  margin: 30px 0;
+  line-height: 2;
+  padding: 20px 30px;
+  border-radius: 30px;
+  background: rgb(0, 0, 0);
+  color: #fff;
+}
+
+.about > h2,
+h3 {
+  font-size: 20px;
+  color: rgb(0, 140, 255);
+}
+
+.about > p,
+p.bottom {
+  margin-top: 10px;
+  color: #fff;
+}

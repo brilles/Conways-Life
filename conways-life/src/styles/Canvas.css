@@ -1,0 +1,8 @@
+h2 {
+  color: #0099ff;
+  height: 40px;
+}
+h2 > span {
+  color: #fff;
+  padding-left: 10px;
+}
